@@ -1,0 +1,94 @@
+.menu-item{
+    padding:  0px 10px 0px 10px;
+}
+.menu{
+    display:flex;
+}
+.product_type{
+    display:block;
+}
+.hr_type{
+    width: 150px;
+    margin-top: -25px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.dropbtn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.sp{
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    width: 1150%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-left: -300px;
+}
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+/*sản phẩm*/
+.products {
+    padding: 20px 0;
+    text-align: center;
+}
+
+.products div  div {
+                            padding: 10px;
+                            border: 1px solid transparent;
+                            border-radius: 4px;
+                            transition: 0.2s;
+                        }
+
+.products div:hover div {
+                                  margin-top: -10px;
+                                  border: 1px solid rgb(200, 200, 200);
+                                  box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px 2px;
+                                  background: rgba(200, 200, 200, 0.1);
+                                  transition: 0.5s;
+                              }
+
+.dl-horizontal dt {
+    float: left;
+    width: 150px;
+    overflow: hidden;
+    clear: left;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.dl-horizontal dd {
+    margin-left: 140px;
+    text-align:left;
+}
+
