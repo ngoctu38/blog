@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\Admin;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,10 +14,18 @@ use App\Http\Controllers\Admin;
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/type/{type}', 'HomeController@getType')->name('type');
-Route::get('/type/detail/{id}', 'HomeController@detail')->name('detail');
+
+Route::match(['get', 'post'],'home', 'HomeController@index')->name('home');
+
+Route::get('/product-type/{type}', 'HomeController@getType')->name('product.type');
+
+Route::get('/product/detail/{id}', 'ProductDetailController@index')->name('product.detail');
+Route::get('/product/detail', 'TestController@index')->name('product.detail');
+
+Route::get('/shopping-cart','CartController@index')->name('shopping-cart');
+Route::get('/add-cart/{id}', 'CartController@addCart')->name('add-cart');
+Route::get('/delete-cart/{id}', 'CartController@DeleteCart')->name('delete.cart');
+Route::get('/delete-list-cart/{id}', 'CartController@DeleteList')->name('delete.list-cart');
 
 Route::get('/hi','Admin\ProductController@index')->name('product.index');
 
@@ -28,8 +36,8 @@ Route::group(['prefix'=>'admin'],function(){
     Route::group(['prefix'=>'product'],function(){
         Route::get('/','Admin\ProductController@index')->name('product.index');
         Route::match(['get', 'post'],'/create','Admin\ProductController@create')->name('product.create');
-        Route::match(['get', 'post'],'/update/{id}','Admin\ProductController@update')->name('product.update');
-        Route::post('/update','Admin\ProductController@update')->name('product.update');
+        Route::get('/update/{id}','Admin\ProductController@update')->name('product.update');
+        Route::post('/update/{id}','Admin\ProductController@update')->name('product.update');
 
         Route::post('/details/{id}','Admin\ProductController@details')->name('product.details');
         Route::delete('/delete/{id}','Admin\ProductController@delete')->name('product.delete');

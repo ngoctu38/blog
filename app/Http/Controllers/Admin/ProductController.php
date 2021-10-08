@@ -19,20 +19,7 @@ class ProductController extends Controller
         $product = Product::all();
         return view('products.index',compact('product'));
     }
-//    public function ajax(Request $request){
-//            $conn = ProductDetail::all();
-//            $color = $_POST['color'];
-//            $size = $_POST['size'];
-//            $quantity = $_POST['quantity'];
-//            $image = $_POST['image'];
-//            $query = "INSERT INTO customer (color , size, quantity, image) VALUES ('$color' ,'$size', '$quantity', '$image')";
-//            $result =  mysqli_query($conn, $query);
-//            if ($result){
-//                echo "1";
-//            }else{
-//                echo "0";
-//            }
-//    }
+
     public function create(Request $request)
     {
         //        $product = DB::table('tb_products')
@@ -51,15 +38,14 @@ class ProductController extends Controller
             return view('products.create',compact('type'));
         } else {
                 $rules =[
+                    'id_type_details'=>'required',
                     'name'=>'required',
                     'price'=>'required',
-                    'quantity'=>'required',
                     'note'=>'required',
                     'avatar'=>'required',
                 ];
                 $message=[
                     'name.required'=>'name not null',
-                    'id_details.required'=>'size and color not null',
                     'price.required'=>'price not null',
                     'quantity.required'=>'qty not null',
                     'note.required'=>'note not null',
@@ -76,15 +62,12 @@ class ProductController extends Controller
                         session()->flash('error','Lưu thất bại !');
                      return view('products.create')->withErrors($validator->errors());
                     }
-                    dd('ssss');
                     DB::beginTransaction();
                     $product = new Product();
                     try {
                         $product->id_type_details = $request->id_type_details;
-                        $product->id_details = $request->id_details;
                         $product->name = $request->name;
                         $product->price = $request->price;
-                        $product->quantity = $request->quantity;
                         $product->note = $request->note;
                         if ($request->hasFile('avatar')){
                             $file = $request->file('avatar');
@@ -96,7 +79,8 @@ class ProductController extends Controller
                         $product->save();
                         DB::commit();
                         session()->flash('success','Lưu thành công !');
-                        return view('products.create');
+                        return redirect('admin/product/update/'.$product->id);
+
                     }catch (Exception $exception){
                         DB::rollBack();
                         return redirect('products.create');
@@ -105,35 +89,32 @@ class ProductController extends Controller
                 }
         }
 
-    public function update(Request $request,$id){
-      $detail = DB::table('tb_product_details')->where( 'id_product' ,   $id)->get();
-      return view('products.update',compact('detail'));
+    public function update(Request $request,$id)
+    {
+
+        $detail = DB::table('tb_product_details')->where('id_product', $id)->get();
         if ($request->isMethod('get')) {
-            return view('products.create',compact('id','detail'));
+            return view('products.update', compact('id', 'detail'));
         } else {
-            dd($request);
-            $rules =[
-                'color'=>'required',
-                'size'=>'required',
-                'quantity'=>'required',
-                'avatar'=>'required',
+            $rules = [
+                'color' => 'required',
+                'size' => 'required',
+                'quantity' => 'required',
             ];
-            $message=[
-                'color.required'=>'name not null',
-                'size.required'=>'size and color not null',
-                'quantity.required'=>'price not null',
-                'avatar.required'=>'qty not null',
+            $message = [
+                'color.required' => 'name not null',
+                'size.required' => 'size and color not null',
+                'quantity.required' => 'price not null',
             ];
-            $validator = Validator::make($request->all(),$rules,$message);
+            $validator = Validator::make($request->all(), $rules, $message);
             $request->flash();
-            if ($validator->fails()){
-                dd('dd');
+            if ($validator->fails()) {
                 response()->json([
-                    'fail'=>true,
-                    'errors'=>$validator->errors()
+                    'fail' => true,
+                    'errors' => $validator->errors()
                 ]);
-                session()->flash('error','Lưu thất bại !');
-                return view('products.update')->withErrors($validator->errors());
+                session()->flash('error', 'Lưu thất bại !');
+                return redirect('admin/product/update/'.$id)->withErrors($validator->errors());
             }
             DB::beginTransaction();
             $detail = new ProductDetail();
@@ -142,23 +123,22 @@ class ProductController extends Controller
                 $detail->color = $request->color;
                 $detail->size = $request->size;
                 $detail->quantity = $request->quantity;
-                $product->note = $request->note;
-                if ($request->hasFile('image')){
+                if ($request->hasFile('image')) {
                     $file = $request->file('image');
-                    $exception  = $file->getClientOriginalExtension();
+                    $exception = $file->getClientOriginalExtension();
                     $fileName = time() . '.' . $exception;
-                    $file->move('images/details',$fileName);
-                    $product->image = $fileName;
+                    $file->move('images/details', $fileName);
+                    $detail->image = $fileName;
                 }
                 $detail->save();
                 DB::commit();
-                session()->flash('success','Lưu thành công !');
-                return view('products.update');
-            }catch (Exception $exception){
+                session()->flash('success', 'Lưu thành công !');
+                return redirect('admin/product/update/'.$id);
+            } catch (Exception $exception) {
                 DB::rollBack();
-                return redirect('products.update');
-
+                return redirect('admin/product/update/'.$id);
             };
         }
     }
+
 }

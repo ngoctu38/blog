@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Cart;
 use App\Product;
+use App\ProductDetail;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -22,19 +24,22 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
-    }
+        if (!empty($request->get('name'))){
+            $name = $request->get('name');
+            $product = Product::where('name', 'LIKE', "%$name%")->orderBy('name')->paginate(6);
+        }else{
+            $product = Product::orderBy('id', 'DESC')->paginate(6);
+        }
+        $detail = ProductDetail::all();
 
-    public function  getType($type){
-        $product_type = Product::where('id_type_details',$type)->get();
-        return view('type_product',compact('product_type'));
+        return view('home', compact( 'product','detail'));
     }
-    public function detail($id){
-        $product_detail = Product::where('id',$id)->get();
-        return view('product_detail',compact('product_detail'));
+    public function  getType($type)
+    {
+        $product_type = Product::where('id_type_details', $type)->paginate(6);
+        return view('type_product', compact('product_type'));
     }
-
 
 }

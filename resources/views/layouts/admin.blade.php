@@ -41,7 +41,7 @@
             <div class="alert alert-success" style="background-color: #e9605c; color: #4c110f"> {{ session()->get('error') }}</div>
         @endif
     </div>
-    <div class="container" style="background-color: #e9605c; color: #4c110f">
+    <div class="container">
         @if(session()->has('success'))
             <div class="alert alert-success"> {{ session()->get('success') }}</div>
         @endif

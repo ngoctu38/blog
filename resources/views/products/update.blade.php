@@ -50,27 +50,27 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <div   id="form-size"  >
-                                    <form method="post" action="{{url('admin/product/update/'.'1')}}"  enctype="multipart/form-data">
+                                    <form method="post" action="{{url('admin/product/update/'.$id)}}"  enctype="multipart/form-data">
                                         @csrf
-                                        <div class="form-group"  >
+                                        <div class="form-group" style="display: none" >
                                             <label >Id Sản Phẩm </label>
-                                            <input type="text" class="form-control" name="id_product" id="id_product" value="1" >
+                                            <input type="text" class="form-control" name="id_product" id="id_product" value="{{$id}}" >
                                         </div>
                                         <div class="form-group">
                                             <label >Màu </label>
-                                            <input type="text" class="form-control" name="color" id="color" placeholder="color..">
+                                            <input type="text" class="form-control" value="{{old('color')}}" name="color" id="color" placeholder="color..">
                                         </div>
                                         <div class="form-group">
                                             <label >Size</label>
-                                            <input type="text" class="form-control" name="size" id="size" placeholder="size..">
+                                            <input type="text" class="form-control" value="{{old('size')}}" name="size" id="size" placeholder="size..">
                                         </div>
                                         <div class="form-group">
                                             <label >số lượng</label>
-                                            <input type="text" class="form-control" name="quantity" id="quantity" placeholder="số lượng..">
+                                            <input type="text" class="form-control" name="quantity" value="{{old('quantity')}}"  id="quantity" placeholder="số lượng..">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleFormControlFile1">Chọn ảnh</label>
-                                            <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1">
+                                            <input type="file" name="image" value="{{old('image')}}" class="form-control-file" id="exampleFormControlFile1">
                                         </div>
                                         <div class="form-group ">
                                             <button  type="submit" name="submit"  class="btn btn-success" >Lưu</button>

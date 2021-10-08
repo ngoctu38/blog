@@ -1,68 +1,53 @@
 @extends('layouts/master')
 @section('content')
-    <div class="container" >
-        <div class="row products" >
-            <div class="col-md-4">
-                <div> <img src="https://360boutique.vn/wp-content/uploads/2021/05/APHTK260-1-400x500.jpg" alt="Sản phẩm 1" class="img-circle img-thumbnail">
-                    <h2>Sản phẩm 1</h2>
-                    <dl class="dl-horizontal">
-                        <dt>Giá:</dt>
-                        <dd> 500.000 đ</dd>
-                        <dt>Bảo hành:</dt>
-                        <dd> 12 tháng</dd>
-                        <dt>Tình trạng:</dt>
-                        <dd> Còn hàng</dd>
-                        <dt>Hãng sản xuất: </dt>
-                        <dd>Japan</dd>
-                    </dl> <a href="http://hocwebgiare.com/" class="btn btn-primary" title="Chi tiết">Chi tiết »</a>
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <a href="#"><i class="fa fa-home"></i> Home</a>
+                        <span>Shop</span>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div> <img src="https://360boutique.vn/wp-content/uploads/2021/05/APHTK253-8-400x500.jpg" alt="Sản phẩm 2" class="img-circle img-thumbnail">
-                    <h2>Sản phẩm 2</h2>
-                    <dl class="dl-horizontal">
-                        <dt>Giá:</dt>
-                        <dd> 600.000 đ</dd>
-                        <dt>Bảo hành:</dt>
-                        <dd> 12 tháng</dd>
-                        <dt>Tình trạng:</dt>
-                        <dd> Còn hàng</dd>
-                        <dt>Hãng sản xuất: </dt>
-                        <dd>Japan</dd>
-                    </dl> <a href="http://hocwebgiare.com/" class="btn btn-primary" title="Chi tiết">Chi tiết »</a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div> <img src="https://360boutique.vn/wp-content/uploads/2021/05/APHTK264-13-400x500.jpg" alt="Sản phẩm 3" class="img-circle img-thumbnail">
-                    <h2>Sản phẩm 3</h2>
-                    <dl class="dl-horizontal">
-                        <dt>Giá:</dt>
-                        <dd> 700.000 đ</dd>
-                        <dt>Bảo hành:</dt>
-                        <dd> 12 tháng</dd>
-                        <dt>Tình trạng:</dt>
-                        <dd> Còn hàng</dd>
-                        <dt>Hãng sản xuất: </dt>
-                        <dd>Japan</dd>
-                    </dl> <a href="http://hocwebgiare.com/" class="btn btn-primary" title="Chi tiết">Chi tiết »</a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div> <img src="https://360boutique.vn/wp-content/uploads/2021/05/APHTK264-13-400x500.jpg" alt="Sản phẩm 3" class="img-circle img-thumbnail">
-                    <h2>Sản phẩm 3</h2>
-                    <dl class="dl-horizontal">
-                        <dt>Giá:</dt>
-                        <dd> 700.000 đ</dd>
-                        <dt>Bảo hành:</dt>
-                        <dd> 12 tháng</dd>
-                        <dt>Tình trạng:</dt>
-                        <dd> Còn hàng</dd>
-                        <dt>Hãng sản xuất: </dt>
-                        <dd>Japan</dd>
-                    </dl> <a href="http://hocwebgiare.com/" class="btn btn-primary" title="Chi tiết">Chi tiết »</a>
-                </div>
-            </div>
-
         </div>
     </div>
+<div class="container" >
+   <div class="row products" >
+    @foreach($product as $sp)
+    <div class="col-lg-4 col-sm-6">
+                                            <div class="product-item">
+                                                <div class="pi-pic">
+                                                    <img style="height: 510px;" src="{{url("images/".$sp->avatar)}}" alt="">
+                                                    <div class="sale pp-sale">sale {{$sp->sale}}%</div>
+                                                    <div class="icon">
+                                                        <i class="icon_heart_alt"></i>
+                                                    </div>
+                                                    <ul>
+                                                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                                        <li class="w-icon"><a href="{{url("/product/detail/$sp->id")}}"><i class="fa fa-random"></i> Chi Tiết</a></li>
+                                                        <li class="quick-view"><a onclick="AddCart({{$sp->id}})" href="javascript:"><i class="fa fa-cart-plus" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="pi-text">
+                                                    <div class="catagory-name">Towel</div>
+                                                    <a href="#">
+                                                        <h5>{{$sp->name}}</h5>
+                                                    </a>
+                                                    <div class="product-price" style="display: flex; padding: 0 85px">
+                                                    <div style="text-decoration: line-through; font-size: 15px; color: black; padding: 5px">
+                                                        {{number_format($sp->price)}}đ
+                                                    </div>
+                                                    <div >
+                                                        {{number_format($sp->price - $sp->price * $sp->sale / 100)}}đ
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+    @endforeach
+   </div>
+    <div class="d-flex justify-content-center" style="padding-bottom: 10px">{{ $product->links() }}</div>
+</div>
 @stop
