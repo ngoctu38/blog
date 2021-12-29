@@ -8,6 +8,7 @@
         @if(session()->has('success'))
             .form_product{
             display: none;
+            background-color: #e9605c;
         }
         @endif
     </style>
@@ -36,6 +37,13 @@
         <label for="exampleFormControlInput1">Giá sản phẩm </label>
         <input type="text"  name="price"  value="{{old('price')}}" class="form-control" id="exampleFormControlInput1" placeholder="Giá sản phẩm....">
         @error('price')
+        <label for="exampleFormControlInput1 " class="check-validation ">{{$message}}</label>
+        @enderror
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlInput1">Giảm giá </label>
+        <input type="text"  name="sale"  value="{{old('sale')}}" class="form-control" id="exampleFormControlInput1" placeholder="Điền số % giảm giá....">
+        @error('sale')
         <label for="exampleFormControlInput1 " class="check-validation ">{{$message}}</label>
         @enderror
     </div>

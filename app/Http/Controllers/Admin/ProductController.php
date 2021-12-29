@@ -7,32 +7,22 @@ use App\Product;
 use App\ProductDetail;
 use App\ProductTypeDetail;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use mysql_xdevapi\Session;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $product = Product::all();
+        $product = Product::orderBy('id', 'DESC')->paginate(10);
         return view('products.index',compact('product'));
     }
 
     public function create(Request $request)
     {
-        //        $product = DB::table('tb_products')
-//            ->leftJoin('tb_product_details', 'tb_product_details.id', '=', 'tb_products.id_details')
-//            ->leftJoin('tb_product_type_details', 'tb_product_type_details.id', '=', 'tb_products.id_type_details')
-//            ->select(
-//                'tb_product_details.color as color',
-//                'tb_product_details.size as size',
-//                'tb_product_type_details.name as type',
-//                'tb_product_details.id as id_details',
-//                'tb_product_type_details.id as id_type_details'
-//            )
-//            ->get();
+
         if ($request->isMethod('get')) {
             $type = ProductTypeDetail::all();
             return view('products.create',compact('type'));
@@ -41,14 +31,15 @@ class ProductController extends Controller
                     'id_type_details'=>'required',
                     'name'=>'required',
                     'price'=>'required',
+                    'sale'=>'required',
                     'note'=>'required',
                     'avatar'=>'required',
                 ];
                 $message=[
                     'name.required'=>'name not null',
                     'price.required'=>'price not null',
-                    'quantity.required'=>'qty not null',
                     'note.required'=>'note not null',
+                    'sale.required'=>'sale not null',
                     'avatar.required'=>'avatar not null',
                     'id_type_detail.required'=>'type not null',
                 ];
@@ -60,13 +51,14 @@ class ProductController extends Controller
                         'errors'=>$validator->errors()
                      ]);
                         session()->flash('error','Lưu thất bại !');
-                     return view('products.create')->withErrors($validator->errors());
+                     return redirect('admin/product/create')->withErrors($validator->errors());
                     }
                     DB::beginTransaction();
                     $product = new Product();
                     try {
                         $product->id_type_details = $request->id_type_details;
                         $product->name = $request->name;
+                        $product->sale = $request->sale;
                         $product->price = $request->price;
                         $product->note = $request->note;
                         if ($request->hasFile('avatar')){
@@ -139,6 +131,11 @@ class ProductController extends Controller
                 return redirect('admin/product/update/'.$id);
             };
         }
+    }
+    public function delete($id){
+        Product::where('id',$id)->delete();
+        session()->flash('success', 'Xóa thành công !');
+        return redirect('admin/product');
     }
 
 }

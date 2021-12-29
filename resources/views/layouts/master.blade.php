@@ -8,18 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Fashi | Template</title>
+    {{-- paypal--}}
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
     <!--css -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <!--js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/admin.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <!-- JavaScript -->
-    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
     <!-- CSS -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
@@ -30,7 +30,7 @@
     <!-- Bootstrap theme -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
     <!-- Css Styles -->
-    <link rel="stylesheet" href="{{url("Template/css/bootstrap.min.css")}}" type="text/css">
+{{--    <link rel="stylesheet" href="{{url("Template/css/bootstrap.min.css")}}" type="text/css">--}}
     <link rel="stylesheet" href="{{url("Template/css/font-awesome.min.css")}}" type="text/css">
     <link rel="stylesheet" href="{{url("Template/css/themify-icons.css")}}" type="text/css">
     <link rel="stylesheet" href="{{url("Template/css/elegant-icons.css")}}" type="text/css">
@@ -73,37 +73,37 @@
                 <div class="col-lg-3 text-right col-md-3">
                     <ul class="nav-right">
                         <li class="heart-icon"><a href="#"><i class="icon_profile"></i> </a>
-                            <ul class="navbar-nav ml-auto">
-                                <!-- Authentication Links -->
-                                @guest
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                    </li>
-                                    @if (Route::has('register'))
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                        </li>
-                                    @endif
-                                @else
-                                    <li class="nav-item dropdown">
-                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                            {{ Auth::user()->name }} <span class="caret"></span>
-                                        </a>
+{{--                            <ul class="navbar-nav ml-auto">--}}
+{{--                                <!-- Authentication Links -->--}}
+{{--                                @guest--}}
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>--}}
+{{--                                    </li>--}}
+{{--                                    @if (Route::has('register'))--}}
+{{--                                        <li class="nav-item">--}}
+{{--                                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>--}}
+{{--                                        </li>--}}
+{{--                                    @endif--}}
+{{--                                @else--}}
+{{--                                    <li class="nav-item dropdown">--}}
+{{--                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>--}}
+{{--                                            {{ Auth::user()->name }} <span class="caret"></span>--}}
+{{--                                        </a>--}}
 
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                                {{ __('Logout') }}
-                                            </a>
+{{--                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">--}}
+{{--                                            <a class="dropdown-item" href="{{ route('logout') }}"--}}
+{{--                                               onclick="event.preventDefault();--}}
+{{--                                                     document.getElementById('logout-form').submit();">--}}
+{{--                                                {{ __('Logout') }}--}}
+{{--                                            </a>--}}
 
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                @csrf
-                                            </form>
-                                        </div>
-                                    </li>
-                                @endguest
-                            </ul>
+{{--                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
+{{--                                                @csrf--}}
+{{--                                            </form>--}}
+{{--                                        </div>--}}
+{{--                                    </li>--}}
+{{--                                @endguest--}}
+{{--                            </ul>--}}
                         </li>
                         <li class="cart-icon navbar-brand"><a href="{{route("shopping-cart")}}">
                                 <i class="icon_bag_alt "></i>
@@ -156,27 +156,17 @@
     <div class="d-flex justify-content-center" id="item-menu"  >
         <div class="btn btn-default menu "   >
             <div class="dropdown">
-                <div class="menu-item "><a href="">Giới thiệu</a></div>
-                <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>
+                <div class="menu-item "><a href="{{route('introduce')}}">Giới thiệu</a></div>
             </div>
             <div class="dropdown">
-                <div class="menu-item "><a href="">Bộ sưu tập</a></div>
-                <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>
+                <div class="menu-item "><a href="#">Bộ sưu tập</a></div>
             </div>
                             <div class="dropdown " >
-                                <div class="menu-item "><a href="">sản phẩm</a></div>
-                                <div class="dropdown-content sp" >
-                                    <div class="dropdown">
+                                <div class="menu-item "><a href="{{route('home')}}">sản phẩm</a></div>
+                                <div class="row dropdown-content sp" >
+                                    <div class="dropdown col-3">
                                         <div class="menu-item "><a href=""><b>Áo Nam</b></a><br><hr class="hr_type"></div>
-                                        <div class="">
+                                        <div class="product_type">
                                             @foreach($type_product as $type)
                                                 @if($type->id_type_detail == 1)
                                                     <a class="product_type" href="{{url('product-type/'.$type->id)}}">{{$type->name}}</a>
@@ -184,8 +174,8 @@
                                             @endforeach
 
                                         </div></div>
-                                    <div class="dropdown">
-                                        <div class="menu-item "><a href=""><b>Quần Nam</b></a></div>
+                                    <div class="dropdown col-3">
+                                        <div class="menu-item "><a href=""><b>Quần Nam</b></a><br><hr class="hr_type"></div>
                                         <div class="product_type">
                                             @foreach($type_product as $type)
                                                 @if($type->id_type_detail == 2)
@@ -193,8 +183,8 @@
                                                 @endif
                                             @endforeach
                                         </div></div>
-                                    <div class="dropdown">
-                                        <div class="menu-item "><a href=""><b>Phụ Kiện Nam</b></a></div>
+                                    <div class="dropdown col-3">
+                                        <div class="menu-item "><a href=""><b>Phụ Kiện Nam</b></a><br><hr class="hr_type"></div>
                                         <div class="product_type">
                                             @foreach($type_product as $type)
                                                 @if($type->id_type_detail == 3)
@@ -202,8 +192,8 @@
                                                 @endif
                                             @endforeach
                                         </div></div>
-                                    <div class="dropdown">
-                                        <div class="menu-item "><a href=""><b>Dày Dép Nam</b></a></div>
+                                    <div class="dropdown col-3">
+                                        <div class="menu-item "><a href=""><b>Dày Dép Nam</b></a><br><hr class="hr_type"></div>
                                         <div class="product_type" >
                                             @foreach($type_product as $type)
                                                 @if($type->id_type_detail == 4)
@@ -214,53 +204,27 @@
                                 </div>
                             </div>
             <div class="dropdown">
-                <div class="menu-item "><a href="">khuyến mãi</a></div>
+                <div class="menu-item "><a href="#">khuyến mãi</a></div>
                 <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
                 </div>
             </div>
             <div class="dropdown">
-                <div class="menu-item "><a href="">tin tức</a></div>
-                <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>
+                <div class="menu-item "><a href="#">tin tức</a></div>
             </div>
             <div class="dropdown">
-                <div class="menu-item "><a href="">tuyển dụng</a></div>
-                <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>
+                <div class="menu-item "><a href="#">tuyển dụng</a></div>
             </div>
             <div class="dropdown">
-                <div class="menu-item "><a href="">hệ thống cửa hàng</a></div>
-                <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>
-            </div>
-            <div class="dropdown">
-                <div class="menu-item "><a href="">Giới thiệu</a></div>
-                <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>
+                <div class="menu-item "><a href="#">hệ thống cửa hàng</a></div>
             </div>
         </div>
     </div>
 </header>
 <!-- Header End -->
-<div>
+<div class="row align-items-center">
     @yield('content')
 </div>
-<footer class="footer-section">
+<footer class="footer-section row align-items-end ">
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
@@ -333,8 +297,8 @@
 
 <!-- Js Plugins -->
 <script src="{{url("Template/js/jquery-3.3.1.min.js")}}"></script>
-<script src="{{url("Template/js/jquery-ui.min.j")}}"></script>
-<script src="{{url("Template/js/bootstrap.min.js")}}"></script>
+<script src="{{url("Template/js/jquery-ui.min.js")}}"></script>
+{{--<script src="{{url("Template/js/bootstrap.min.js")}}"></script>--}}
 <script src="{{url("Template/js/jquery.countdown.min.js")}}"></script>
 <script src="{{url("Template/js/jquery.nice-select.min.js")}}"></script>
 <script src="{{url("Template/js/jquery.zoom.min.js")}}"></script>

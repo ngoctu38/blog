@@ -7,14 +7,14 @@ use App\ProductDetail;
 
 class ProductDetailController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
+    public function index($id){
+        $detail = ProductDetail::where('id_product',$id)->get();
+        $product = Product::where('id',$id)->get();
+        return view('product-detail',compact('detail','product'));
     }
-
-
-    public function index(){
-        return view('cart.product-detail');
+    public function selectImg($id){
+        $img = ProductDetail::where('id',$id)->first();
+        return view('cart.image',compact('img'));
     }
 
 

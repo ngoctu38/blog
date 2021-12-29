@@ -19,24 +19,16 @@
                     <td class="cart-title first-row">
                         <h5>{{$sp['productInfo']->name}}</h5>
                     </td>
-                    <td style="display: flex ; padding: 47px 0">
-                        <select name="id_type_details" class="form-control" id="exampleFormControlSelect1">
-                            <option>-size-</option>
-                        </select>
-                        <select name="id_type_details" class="form-control" id="exampleFormControlSelect1">
-                            <option>-color-</option>
-                        </select>
-                    </td>
                     <td class="p-price first-row">{{number_format($sp['productInfo']->price - $sp['productInfo']->price * $sp['productInfo']->sale / 100)}}đ</td>
                     <td class="qua-col first-row">
                         <div class="quantity">
                             <div class="pro-qty">
-                                <input type="text" id="quantity-iteam-{{$sp['productInfo']->id}}"  value="{{$sp['quantity']}}">
+                                <input type="text" id="quantity-item-{{$sp['productInfo']->id}}"  value="{{$sp['quantity']}}">
                             </div>
                         </div>
                     </td>
                     <td class="total-price first-row">{{number_format($sp['price'])}}</td>
-                    <td class="close-td first-row" onclick="SaveListCart({{$sp['productInfo']->id}})" ><i class="ti-save"></i></td>
+                    <td class="close-td first-row" data-id="{{$sp['productInfo']->id}}" onclick="SaveList({{$sp['productInfo']->id}})" id="save-cart-item{{$sp['productInfo']->id}}"><i class="ti-save"></i></td>
                     <td class="close-td first-row"  onclick="DeleteList({{$sp['productInfo']->id}})"><i class="ti-close"></i></td>
                 </tr>
             @endforeach
@@ -49,8 +41,29 @@
                 <ul>
                     <li class="cart-total">Total <span>{{number_format(session('cart')->totalPrice)}}đ</span></li>
                 </ul>
-                <a href="#" class="proceed-btn">PROCEED TO CHECK OUT</a>
+                <div id="paypal-button"></div>
+                <button type="button"   data-bs-toggle="modal" data-bs-target="#exampleModal" class="proceed-btn" style="width: 100%">PROCEED TO CHECK OUT</button>
             </div>
         </div>
     </div>
+    <script>
+        var proQty = $('.pro-qty');
+        proQty.prepend('<span class="dec qtybtn">-</span>');
+        proQty.append('<span class="inc qtybtn">+</span>');
+        proQty.on('click', '.qtybtn', function () {
+            var $button = $(this);
+            var oldValue = $button.parent().find('input').val();
+            if ($button.hasClass('inc')) {
+                var newVal = parseFloat(oldValue) + 1;
+            } else {
+                // Don't allow decrementing below zero
+                if (oldValue > 0) {
+                    var newVal = parseFloat(oldValue) - 1;
+                } else {
+                    newVal = 0;
+                }
+            }
+            $button.parent().find('input').val(newVal);
+        });
+    </script>
 @endif

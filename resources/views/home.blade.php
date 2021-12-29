@@ -4,10 +4,23 @@
     <div class="breacrumb-section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb-text">
+                <div class="row">
+                    <div class="breadcrumb-text row">
+                        <div class="col-10">
                         <a href="#"><i class="fa fa-home"></i> Home</a>
                         <span>Shop</span>
+                    </div>
+                    <div class="form-group col-2 select" style="padding: 0px; margin: 0px">
+                        <div class="dropdown">
+                            <div class="  "><a href="#">Hiển thị danh sách</a></div>
+                            <div class="dropdown-content">
+                                <a class="product_type"  href="{{url("home")}}">sản phẩm mới nhất</a>
+                                <a class="product_type"  href="{{url("home/priceT")}}">Giá thấp đến cao</a>
+                                <a class="product_type"  href="{{url("home/priceC")}}">Giá cao đến thấp</a>
+                                <a class="product_type"  href="{{route("home.sale")}}">Giảm giá cao</a>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -27,8 +40,10 @@
                                                     <ul>
                                                         <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
                                                         <li class="w-icon"><a href="{{url("/product/detail/$sp->id")}}"><i class="fa fa-random"></i> Chi Tiết</a></li>
-                                                        <li class="quick-view"><a onclick="AddCart({{$sp->id}})" href="javascript:"><i class="fa fa-cart-plus" aria-hidden="true"></i></a></li>
+                                                        <li class="quick-view"><a onclick="AddCart({{$sp->id}})" href="javascript:"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
+                                                        </li>
                                                     </ul>
+
                                                 </div>
                                                 <div class="pi-text">
                                                     <div class="catagory-name">Towel</div>

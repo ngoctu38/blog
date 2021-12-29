@@ -14,7 +14,7 @@ class CreateTbProductDetailsTable extends Migration
     public function up()
     {
         Schema::create('tb_product_details', function (Blueprint $table) {
-            $table->integer('id');
+            $table->bigIncrements('id');
             $table->integer('id_product');
             $table->string('color');
             $table->string('size');

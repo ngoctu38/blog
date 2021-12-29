@@ -14,10 +14,11 @@ class CreateTbProductsTable extends Migration
     public function up()
     {
         Schema::create('tb_products', function (Blueprint $table) {
-            $table->integer('id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->integer('price');
             $table->string('avatar');
+            $table->string('sale');
             $table->string('note');
             $table->integer('id_type_details');
             $table->timestamp('last_used_at')->nullable();

@@ -14,7 +14,7 @@ class CreateTbSaleTable extends Migration
     public function up()
     {
         Schema::create('tb_sale', function (Blueprint $table) {
-            $table->integer('id');
+            $table->bigIncrements('id');
             $table->integer('id_product');
             $table->string('name');
             $table->string('price');

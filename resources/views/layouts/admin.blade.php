@@ -32,8 +32,8 @@
 <div class="row">
 <div class="col-2" style=" height: 1000px">
         <div><a class="dropdown-item" href="{{route('product.index')}}">Sản phẩm</a></div>
-        <div><a class="dropdown-item  " href="{{route('product.create')}}" >Đơn hàng</a></div>
-        <div><a class="dropdown-item" href="#">khuyến mãi</a></div>
+        <div><a class="dropdown-item  " href="{{route('order.index')}}" >Đơn hàng</a></div>
+        <div><a class="dropdown-item  " href="{{route('product-type.index')}}" >Loại sản phẩm</a></div>
 </div>
 <div class="col-10">
     <div class="container" >

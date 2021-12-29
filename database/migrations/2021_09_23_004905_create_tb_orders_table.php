@@ -14,11 +14,11 @@ class CreateTbOrdersTable extends Migration
     public function up()
     {
         Schema::create('tb_orders', function (Blueprint $table) {
-            $table->integer('id');
-            $table->integer('id_user');
-            $table->integer('id_cat_item');
+            $table->bigIncrements('id');
+            $table->integer('id_customer');
             $table->string('address');
-            $table->string('note');
+            $table->string('note')->nullable();
+            $table->integer('status');
             $table->integer('total');
             $table->timestamps();
         });

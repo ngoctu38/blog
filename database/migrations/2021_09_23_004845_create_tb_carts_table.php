@@ -14,9 +14,12 @@ class CreateTbCartsTable extends Migration
     public function up()
     {
         Schema::create('tb_carts', function (Blueprint $table) {
-            $table->integer('id');
+            $table->bigIncrements('id');
             $table->integer('id_product');
+            $table->integer('id_order');
+            $table->integer('id_customer');
             $table->integer('id_product_detail');
+            $table->integer('price');
             $table->integer('qty');
             $table->integer('total');
             $table->timestamps();
